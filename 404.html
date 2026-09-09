@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einladung – Heimly</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --bg: #F6EFE4; --surface: #FFFFFF; --text: #2B241D; --muted: #6F6256;
+    --accent: #C56B45; --border: #E4D8C7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #211C17; --surface: #2A241E; --text: #F1E7DA; --muted: #B3A695;
+      --accent: #E08C5F; --border: #3A322A;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1.25rem 4rem;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 .5rem; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .5rem; color: var(--accent); }
+  p, li { color: var(--text); }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  strong { font-weight: 650; }
+  a { color: var(--accent); }
+  code { font-size: .95em; }
+  .draft {
+    background: #C0392B; color: #fff; padding: .75rem 1rem;
+    border-radius: .5rem; font-weight: 600;
+  }
+  footer {
+    margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .9rem;
+  }
+  footer nav { margin-bottom: .5rem; }
+  /* Die aktuelle Seite steht mit da, aber nicht als Link ins Nirgendwo. */
+  footer nav [aria-current] { color: var(--text); font-weight: 600; }
+</style>
+<style>
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: .75rem; padding: 1.25rem; margin: 1.5rem 0;
+  }
+  .code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1.05rem; word-break: break-word; margin: .25rem 0 0;
+  }
+  .btn {
+    display: inline-block; margin: .35rem .5rem .35rem 0;
+    padding: .7rem 1.1rem; border-radius: .5rem;
+    text-decoration: none; font-weight: 600;
+  }
+  .primary { background: var(--accent); color: #fff; }
+  .secondary { border: 1px solid var(--border); color: var(--text); }
+</style>
+</head>
+<body>
+<main>
+<h1>Heimly</h1>
+
+<div id="invite" hidden>
+<p>Du wurdest zu <span id="kind">einer Einkaufsliste</span> eingeladen.</p>
+<div class="card">
+<strong>Einladungscode</strong>
+<p class="code" id="code"></p>
+</div>
+<p>
+<a class="btn primary" id="open" href="#">In Heimly öffnen</a>
+<a class="btn secondary" href="https://play.google.com/store/apps/details?id=com.mgmedia.heimly">Heimly bei Google Play</a>
+</p>
+<p>Öffnet sich die App nicht, dann installiere Heimly, tippe dort auf
+<strong>Beitreten</strong> und gib den Code oben ein. Ein Konto brauchst du nicht.</p>
+</div>
+
+<div id="generic" hidden>
+<p>Diese Seite gibt es nicht.</p>
+<p><a href="./">Zur Datenschutzerklärung</a></p>
+</div>
+
+<footer>
+Heimly · Einkaufsliste &amp; Familienplaner
+</footer>
+</main>
+<script>
+(function () {
+  var m = new RegExp('[/](join|household)[/]([A-Za-z0-9_-]+)').exec(location.pathname);
+  if (!m) {
+    document.getElementById('generic').hidden = false;
+    return;
+  }
+  var route = m[1];
+  var code = m[2];
+  document.getElementById('kind').textContent =
+    route === 'household' ? 'einem Haushalt' : 'einer Einkaufsliste';
+  document.getElementById('code').textContent = code.replace(/(.{4})/g, '$1 ').trim();
+  document.getElementById('open').setAttribute('href', 'heimly://' + route + '/' + code);
+  document.getElementById('invite').hidden = false;
+})();
+</script>
+</body>
+</html>
