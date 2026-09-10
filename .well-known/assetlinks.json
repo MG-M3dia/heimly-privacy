@@ -1,0 +1,16 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.mgmedia.heimly",
+      "sha256_cert_fingerprints": [
+        "10:F7:54:33:35:F8:DE:E9:2F:E6:32:4C:35:90:5C:74:34:BF:A3:00:8F:3E:49:FE:65:22:E8:DE:6F:EB:11:44",
+        "4D:2D:47:49:B4:D5:01:3E:D2:18:D5:30:62:7E:66:25:49:82:F2:D1:7F:C6:0E:D4:48:19:E3:B5:18:76:76:21",
+        "49:66:E7:6B:66:51:56:A1:6B:3F:C2:EE:BE:9B:81:24:D1:9F:2E:B0:A5:E3:05:DE:CB:78:06:79:96:21:65:F9"
+      ]
+    }
+  }
+]
