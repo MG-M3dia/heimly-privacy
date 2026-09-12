@@ -66,41 +66,84 @@
 <h1>Heimly</h1>
 
 <div id="invite" hidden>
-<p>Du wurdest zu <span id="kind">einer Einkaufsliste</span> eingeladen.</p>
+<p id="eingeladen"></p>
 <div class="card">
-<strong>Einladungscode</strong>
+<strong id="codeLabel"></strong>
 <p class="code" id="code"></p>
 </div>
 <p>
-<a class="btn primary" id="open" href="#">In Heimly öffnen</a>
-<a class="btn secondary" href="https://play.google.com/store/apps/details?id=com.mgmedia.heimly">Heimly bei Google Play</a>
+<a class="btn primary" id="open" href="#"></a>
+<a class="btn secondary" id="play" href="https://play.google.com/store/apps/details?id=com.mgmedia.heimly"></a>
 </p>
-<p>Öffnet sich die App nicht, dann installiere Heimly, tippe dort auf
-<strong>Beitreten</strong> und gib den Code oben ein. Ein Konto brauchst du nicht.</p>
+<p id="hinweis"></p>
 </div>
 
 <div id="generic" hidden>
-<p>Diese Seite gibt es nicht.</p>
-<p><a href="./">Zur Datenschutzerklärung</a></p>
+<p id="weg"></p>
+<p><a id="datenschutz" href="/datenschutz/"></a></p>
 </div>
 
-<footer>
-Heimly · Einkaufsliste &amp; Familienplaner
-</footer>
+<footer id="fuss"></footer>
 </main>
 <script>
 (function () {
+  var T = {
+    de: {
+      titel: 'Einladung \u2013 Heimly',
+      liste: 'Du wurdest zu einer Einkaufsliste eingeladen.',
+      haushalt: 'Du wurdest zu einem Haushalt eingeladen.',
+      codeLabel: 'Einladungscode',
+      oeffnen: 'In Heimly \u00f6ffnen',
+      play: 'Heimly bei Google Play',
+      hinweis: '\u00d6ffnet sich die App nicht, dann installiere Heimly, tippe dort auf Beitreten und gib den Code oben ein. Ein Konto brauchst du nicht.',
+      wegTitel: 'Seite nicht gefunden – Heimly',
+      weg: 'Diese Seite gibt es nicht.',
+      datenschutz: 'Zur Datenschutzerkl\u00e4rung',
+      datenschutzZiel: '/datenschutz/',
+      fuss: 'Heimly \u00b7 Einkaufsliste & Familienplaner'
+    },
+    en: {
+      titel: 'Invitation \u2013 Heimly',
+      liste: 'You have been invited to a shopping list.',
+      haushalt: 'You have been invited to a household.',
+      codeLabel: 'Invitation code',
+      oeffnen: 'Open in Heimly',
+      play: 'Heimly on Google Play',
+      hinweis: 'If the app does not open, install Heimly, tap Join and enter the code above. You do not need an account.',
+      wegTitel: 'Page not found – Heimly',
+      weg: 'This page does not exist.',
+      datenschutz: 'To the privacy policy',
+      datenschutzZiel: '/en/privacy/',
+      fuss: 'Heimly \u00b7 Shopping list & household planner'
+    }
+  };
+  var sprache = (navigator.language || 'en').toLowerCase().indexOf('de') === 0 ? 'de' : 'en';
+  var t = T[sprache];
+  document.documentElement.lang = sprache;
+  document.title = t.titel;
+  document.getElementById('fuss').textContent = t.fuss;
+
   var m = new RegExp('[/](join|household)[/]([A-Za-z0-9_-]+)').exec(location.pathname);
   if (!m) {
+    document.title = t.wegTitel;
+    document.getElementById('weg').textContent = t.weg;
+    var ds = document.getElementById('datenschutz');
+    ds.textContent = t.datenschutz;
+    ds.setAttribute('href', t.datenschutzZiel);
     document.getElementById('generic').hidden = false;
     return;
   }
   var route = m[1];
   var code = m[2];
-  document.getElementById('kind').textContent =
-    route === 'household' ? 'einem Haushalt' : 'einer Einkaufsliste';
+  document.getElementById('eingeladen').textContent =
+    route === 'household' ? t.haushalt : t.liste;
+  document.getElementById('codeLabel').textContent = t.codeLabel;
   document.getElementById('code').textContent = code.replace(/(.{4})/g, '$1 ').trim();
-  document.getElementById('open').setAttribute('href', 'heimly://' + route + '/' + code);
+  var open = document.getElementById('open');
+  open.textContent = t.oeffnen;
+  open.setAttribute('href', 'heimly://' + route + '/' + code);
+  document.getElementById('play').textContent = t.play;
+  document.getElementById('hinweis').textContent = t.hinweis;
   document.getElementById('invite').hidden = false;
 })();
 </script>

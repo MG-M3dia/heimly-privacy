@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data deletion – Heimly</title>
+<meta name="robots" content="index, follow">
+<style>
+  :root {
+    --bg: #F6EFE4; --surface: #FFFFFF; --text: #2B241D; --muted: #6F6256;
+    --accent: #C56B45; --border: #E4D8C7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #211C17; --surface: #2A241E; --text: #F1E7DA; --muted: #B3A695;
+      --accent: #E08C5F; --border: #3A322A;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1.25rem 4rem;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 .5rem; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .5rem; color: var(--accent); }
+  p, li { color: var(--text); }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  strong { font-weight: 650; }
+  a { color: var(--accent); }
+  code { font-size: .95em; }
+  .draft {
+    background: #C0392B; color: #fff; padding: .75rem 1rem;
+    border-radius: .5rem; font-weight: 600;
+  }
+  footer {
+    margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .9rem;
+  }
+  footer nav { margin-bottom: .5rem; }
+  /* Die aktuelle Seite steht mit da, aber nicht als Link ins Nirgendwo. */
+  footer nav [aria-current] { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Deleting your data in Heimly</h1>
+<p>Last updated: 21 August 2026</p>
+<p>This is a translation. The German version is the authoritative one; if the two ever disagree, the German text applies.</p>
+<p>Heimly stores your lists and your pantry <strong>on your device only</strong> by default. Data is held on the server exclusively when you <strong>share</strong> a list, <strong>join</strong> a shared list, or belong to a <strong>household</strong>. Accordingly there are two ways to delete your data.</p>
+<h2>1. Delete in the app, right away</h2>
+<p>This is the fastest route — the deletion takes effect on the server immediately.</p>
+<ul>
+<li><strong>A shared list you shared yourself:</strong> open the list → sharing icon at the top right → <strong>"Stop sharing"</strong>, or delete the list. The copy on the server is <strong>deleted completely</strong>, including all its items and the assignment of every participating device.</li>
+<li><strong>A shared list you joined:</strong> open the list → sharing icon → <strong>"Stop sharing"</strong>. This deletes <strong>your assignment</strong> to that list from the server.</li>
+<li><strong>A household you created:</strong> Settings → <strong>Household</strong> → <strong>"Leave household"</strong>. The copy on the server is <strong>deleted completely</strong>, including the shared pantry, the recipes, all ratings and the assignment of every participating device.</li>
+<li><strong>A household you joined:</strong> Settings → <strong>Household</strong> → <strong>"Leave household"</strong>. This deletes <strong>your assignment</strong> to that household from the server — together with <strong>the ratings you gave there</strong>. The recipes themselves stay with the household; they belong to it, not to you.</li>
+<li><strong>Local (unshared) data:</strong> delete individual lists, items, pantry items or recipes in the app, or uninstall the app — all local data is then removed irrevocably.</li>
+<li><strong>Everything at once:</strong> Settings → <strong>Data</strong>. There are two levels there: <strong>"Reset this device"</strong> removes everything held locally — what you shared remains for the others, and you can rejoin with the join code. <strong>"Delete all data"</strong> additionally removes everything on the server: your own households including pantry and recipes, your ratings in other people's households too, your own shared lists, all memberships, the display name and the pseudonymous identifier. For households and lists that belong to you, this applies to the other members as well.</li>
+</ul>
+<h2>2. Request deletion by email</h2>
+<p>If you no longer have access to your device, write to <strong>support.mgmedia@gmail.com</strong>. So that we can find the right data, please give us the <strong>join code</strong> of the shared list concerned (visible in the app under the sharing icon) or of the household (Settings → Household). We will then delete the associated data on the server.</p>
+<p>The route through the app covers <strong>all</strong> data — including the display name (Settings → Data → "Delete all data"). So you only need the email if you can no longer get to the device.</p>
+<h2>Which data is affected and how long it is stored</h2>
+<ul>
+<li><strong>On the server</strong> (only for shared lists): the list contents (name, items, quantities, categories, notes) and a pseudonymous, random identifier. This data stays stored <strong>for as long as the list is shared</strong>, and is removed immediately on "Stop sharing" or when the list is deleted.</li>
+<li><strong>On the server</strong> (only for a household): the name of the household and the shared pantry (name, storage place, quantity, unit, category, date, notes), plus the <strong>display name</strong> you chose. Pantry and household are removed immediately when you leave (or your assignment, if you joined). The display name remains for the time being but is no longer visible to anyone; "Delete all data" removes it for good.</li>
+<li><strong>On your device:</strong> all unshared lists and settings. They are deleted completely when you uninstall the app.</li>
+<li><strong>Server logs</strong> (e.g. IP address) at the hosting provider are deleted automatically after a short time.</li>
+</ul>
+<h2>Controller</h2>
+<p>Matthias Geisler, Lindenweg 30/1, 74182 Obersulm, Germany · support.mgmedia@gmail.com · <a href="https://heimlyapp.de/en/privacy">Privacy policy</a></p>
+<footer>
+<nav><a href="../../en/">Home</a> · <a href="../../en/roadmap/">Roadmap</a> · <a href="../../en/privacy/">Privacy policy</a> · <span aria-current="page">Data deletion</span> · <a href="../../en/imprint/">Imprint</a> · <a href="../../" lang="de">Deutsch</a></nav>
+Heimly &middot; Shopping list &amp; household planner
+</footer>
+</main>
+</body>
+</html>

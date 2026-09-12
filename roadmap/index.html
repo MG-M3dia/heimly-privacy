@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Was als Nächstes kommt – Heimly</title>
+<meta name="robots" content="index, follow">
+<style>
+  :root {
+    --bg: #F6EFE4; --surface: #FFFFFF; --text: #2B241D; --muted: #6F6256;
+    --accent: #C56B45; --border: #E4D8C7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #211C17; --surface: #2A241E; --text: #F1E7DA; --muted: #B3A695;
+      --accent: #E08C5F; --border: #3A322A;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1.25rem 4rem;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 .5rem; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .5rem; color: var(--accent); }
+  p, li { color: var(--text); }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  strong { font-weight: 650; }
+  a { color: var(--accent); }
+  code { font-size: .95em; }
+  .draft {
+    background: #C0392B; color: #fff; padding: .75rem 1rem;
+    border-radius: .5rem; font-weight: 600;
+  }
+  footer {
+    margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .9rem;
+  }
+  footer nav { margin-bottom: .5rem; }
+  /* Die aktuelle Seite steht mit da, aber nicht als Link ins Nirgendwo. */
+  footer nav [aria-current] { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Was als Nächstes kommt</h1>
+<p>Heimly wird von einer Person gebaut. Diese Seite zeigt, was geplant ist — in der Reihenfolge, in der es voraussichtlich kommt.</p>
+<h2>Als Nächstes</h2>
+<ul>
+<li><strong>Rezepte direkt teilen.</strong> Ein Rezept aus dem Browser oder einem Chat über „Teilen" an Heimly schicken, statt den Text zu kopieren und einzufügen.</li>
+<li><strong>Rückmeldungen.</strong> Ein Formular auf dieser Seite — ohne Konto und ohne Absender, damit Fehler und Wünsche nicht nur über Store-Bewertungen ankommen.</li>
+</ul>
+<h2>Später</h2>
+<ul>
+<li><strong>Rezepte ordnen.</strong> Kategorien oder Schlagwörter. Erst, wenn genug Rezepte da sind, um zu sehen, wonach überhaupt gesucht wird — vorher entscheidet man im Trüben.</li>
+<li><strong>Portionen umrechnen.</strong> Die Mengen liegen dafür schon strukturiert vor.</li>
+<li><strong>Foto vom Fach.</strong> Für „was liegt eigentlich unten drunter" ist ein Bild oft brauchbarer als eine Liste.</li>
+<li><strong>Zugang sichern.</strong> Heute lebt alles ohne Konto auf dem Gerät. Wer will, soll seinen Zugang künftig sichern können, damit ein Gerätewechsel nichts kostet — freiwillig, und nicht als Hürde beim ersten Start.</li>
+</ul>
+<h2>Etwas vermisst?</h2>
+<p>Bis das Formular steht, geht es per Mail: <a href="mailto:support.mgmedia@gmail.com">support.mgmedia@gmail.com</a></p>
+<footer>
+<nav><a href="../">Start</a> · <span aria-current="page">Roadmap</span> · <a href="../datenschutz/">Datenschutzerklärung</a> · <a href="../datenloeschung/">Datenlöschung</a> · <a href="../impressum/">Impressum</a> · <a href="../en/" lang="en">English</a></nav>
+Heimly &middot; Einkaufsliste &amp; Familienplaner
+</footer>
+</main>
+</body>
+</html>
