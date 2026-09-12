@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy – Heimly</title>
+<meta name="robots" content="index, follow">
+<style>
+  :root {
+    --bg: #F6EFE4; --surface: #FFFFFF; --text: #2B241D; --muted: #6F6256;
+    --accent: #C56B45; --border: #E4D8C7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #211C17; --surface: #2A241E; --text: #F1E7DA; --muted: #B3A695;
+      --accent: #E08C5F; --border: #3A322A;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1.25rem 4rem;
+    background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 .5rem; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .5rem; color: var(--accent); }
+  p, li { color: var(--text); }
+  ul { padding-left: 1.25rem; }
+  li { margin: .4rem 0; }
+  strong { font-weight: 650; }
+  a { color: var(--accent); }
+  code { font-size: .95em; }
+  .draft {
+    background: #C0392B; color: #fff; padding: .75rem 1rem;
+    border-radius: .5rem; font-weight: 600;
+  }
+  footer {
+    margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .9rem;
+  }
+  footer nav { margin-bottom: .5rem; }
+  /* Die aktuelle Seite steht mit da, aber nicht als Link ins Nirgendwo. */
+  footer nav [aria-current] { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Privacy policy for Heimly</h1>
+<p>Last updated: 21 August 2026</p>
+<p>This is a translation. The German version is the authoritative one; if the two ever disagree, the German text applies.</p>
+<h2>1. Controller</h2>
+<p>Controller for the processing of personal data within the meaning of the GDPR:</p>
+<p>Matthias Geisler<br>Kurt-Schumacher-Straße 74<br>67663 Kaiserslautern<br>Germany<br>Email: support.mgmedia@gmail.com</p>
+<h2>2. Overview</h2>
+<p>Heimly is a shopping list app. Data minimisation is part of the design:</p>
+<ul>
+<li>Using it requires <strong>no sign-up, no email address and no account</strong>.</li>
+<li>There is <strong>no advertising, no tracking and no analytics</strong>.</li>
+<li>Your lists, your pantry and your recipes stay <strong>on your device by default</strong>.</li>
+</ul>
+<h2>3. Local data (on your device)</h2>
+<p>Heimly stores the following data exclusively in your device's app storage: your lists, items, categories, pantry items and recipes, along with app settings (language, appearance). As long as you do not actively share a list and do not belong to a household, this data is <strong>not transmitted to us or to third parties</strong>. You can delete it in the app at any time, or remove it entirely by uninstalling the app.</p>
+<h2>4. Sharing and syncing (optional)</h2>
+<p>Only when you <strong>actively share</strong> a list, <strong>join</strong> a shared list, or create or join a <strong>household</strong> is the affected data stored in a cloud, in order to make synchronisation between devices possible.</p>
+<ul>
+<li><strong>Scope (shared list):</strong> the name of the shared list, its items (name, quantity, unit, category, checked state, notes) and timestamps. For categories you created yourself, their name, colour and icon are transmitted as well, so that the list looks the same on the other device. Lists you do not share never leave your device.</li>
+<li><strong>Scope (household, recipes):</strong> the title, ingredients, preparation steps, notes, serving size and an optional source note of the recipes you have stored in the app, together with your rating ("good", "ok", "bad") and those of the other members. You type or paste the recipe text and the notes yourself — they can contain whatever you write into them. Please do not paste other people's personal data there. Recipes leave your device only while you belong to a household.</li>
+<li><strong>Scope (household, pantry):</strong> the name of the household and the stored pantry items (name, storage place, quantity, unit, category, date added, optional best-before date, notes) and timestamps. A pantry you do not share in a household never leaves your device.</li>
+<li><strong>Connection data:</strong> as with any online service, your device transmits technically necessary connection data when syncing (including IP address, time, device/client details). This arises in the server logs of our processor, serves operation and security, and is deleted there automatically after a short time. Legal basis: Art. 6(1)(f) GDPR (secure, uninterrupted operation).</li>
+<li><strong>Pseudonymous identifier:</strong> for access, your device signs in anonymously and receives a random, pseudonymous identifier (no real identity, no email, no password). Access to a shared list or a household is governed by a secret join code that only you pass on.</li>
+<li><strong>Display name in a household:</strong> when you create or join a household, you choose a display name so that the other members can tell who belongs. It is stored on the server and is visible <strong>only to the other members of the same household</strong> — there is no public directory. You choose it freely; a real name is neither required nor intended, and you can change it in the app at any time. If you leave the household, the others can no longer see it; for complete deletion see section 6.</li>
+<li><strong>Processor / hosting:</strong> synchronisation runs via Supabase (Supabase, Inc.). The data is hosted in the <strong>European Union</strong> (Frankfurt am Main region, Germany). A data processing agreement under Art. 28 GDPR is in place with Supabase (Data Processing Addendum, concluded on 21 July 2026). Where group companies outside the EU may gain access, the transfer is based on the EU Standard Contractual Clauses, which form part of that agreement. Supabase in turn uses sub-processors; these are named in the data processing agreement.</li>
+<li><strong>Legal basis:</strong> Art. 6(1)(b) GDPR (performance of the sharing function you requested) and Art. 6(1)(a) GDPR (consent through active sharing).</li>
+</ul>
+<h2>5. No advertising, no tracking</h2>
+<p>Heimly contains no advertising, no analytics or tracking services, and does not pass on any data for advertising purposes.</p>
+<h2>6. Retention and deletion</h2>
+<ul>
+<li><strong>Local data:</strong> stays until you delete it or uninstall the app.</li>
+<li><strong>Stopping or deleting a shared list:</strong> if you started the sharing, the list is deleted from the server completely — including all its items and the assignment of the participating devices. Only the local copy remains on each device.</li>
+<li><strong>A list you joined:</strong> if you stop sharing there or delete it, your assignment to that list is deleted from the server. The list itself remains for the other participants.</li>
+<li><strong>Dissolving or leaving a household:</strong> if you created the household, it is deleted from the server completely when you leave — including the shared pantry, the recipes, all ratings and the assignment of every participating device. If you joined, your assignment <strong>and the ratings you gave</strong> are deleted; the household remains for the others, and so do the recipes — they belong to the household, not to you. The local copy of the pantry and the recipes remains on each device.</li>
+<li><strong>Display name:</strong> after you leave a household it is no longer visible to anyone, but it stays stored for the time being so that it is available again if you join later. It is removed for good with "Delete all data" (see next point).</li>
+<li><strong>Delete everything:</strong> in the settings under <strong>Data</strong>, <strong>"Delete all data"</strong> removes in one step everything belonging to this device — locally and on the server: your own households including the shared pantry and recipes, your ratings in other people's households too, your own shared lists, all memberships, the display name and the pseudonymous identifier itself. Afterwards nothing remains on the server that could be linked to this device. The operation cannot be undone.</li>
+<li><strong>Individual items:</strong> are first marked as deleted (so that every device can apply the deletion) and are removed together with the list once that list is deleted. For immediate complete removal, contact us (see section 1).</li>
+</ul>
+<h2>7. Your rights (GDPR)</h2>
+<p>You have the right to information, rectification, erasure, restriction of processing, data portability and objection (Art. 15–21 GDPR). To exercise them, write to support.mgmedia@gmail.com. You also have the right to lodge a complaint with a data protection supervisory authority.</p>
+<h2>8. Children</h2>
+<p>Heimly is a family app without sign-up. We do not knowingly collect personal data from children.</p>
+<h2>9. Changes to this policy</h2>
+<p>We may adapt this privacy policy, for example when features are added. The current version is always available in the app.</p>
+<footer>
+<nav><a href="../../en/">Home</a> · <a href="../../en/roadmap/">Roadmap</a> · <span aria-current="page">Privacy policy</span> · <a href="../../en/data-deletion/">Data deletion</a> · <a href="../../en/imprint/">Imprint</a> · <a href="../../" lang="de">Deutsch</a></nav>
+Heimly &middot; Shopping list &amp; household planner
+</footer>
+</main>
+</body>
+</html>
