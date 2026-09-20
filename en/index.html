@@ -4,76 +4,226 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Heimly – Shopping list, pantry and recipes</title>
-<meta name="description" content="Shopping list, pantry and recipes for your household - without an account.">
-<meta name="robots" content="index, follow">
+<link rel="icon" href="../img/icon.png" type="image/png">
+<meta name="theme-color" content="#F6EFE4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211C17" media="(prefers-color-scheme: dark)">
 <style>
   :root {
-    --bg: #F6EFE4; --surface: #FFFFFF; --text: #2B241D; --muted: #6F6256;
-    --accent: #C56B45; --border: #E4D8C7;
+    --bg: #F6EFE4; --surface: #FFFFFF; --surface-alt: #FBF6EE; --text: #2B241D;
+    --muted: #6F6256; --accent: #C56B45; --accent-soft: #F4E3D7; --border: #E4D8C7;
+    --frame: #2B241D;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #211C17; --surface: #2A241E; --text: #F1E7DA; --muted: #B3A695;
-      --accent: #E08C5F; --border: #3A322A;
+      --bg: #211C17; --surface: #2A241E; --surface-alt: #322B25; --text: #F1E7DA;
+      --muted: #B3A695; --accent: #E08C5F; --accent-soft: #3A2E24; --border: #3A322A;
+      --frame: #0F0C0A;
     }
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0; padding: 2rem 1.25rem 4rem;
-    background: var(--bg); color: var(--text);
+    margin: 0; background: var(--bg); color: var(--text);
     font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
-  main { max-width: 44rem; margin: 0 auto; }
+  a { color: var(--accent); }
   h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 .5rem; }
   h2 { font-size: 1.15rem; margin: 2.25rem 0 .5rem; color: var(--accent); }
   p, li { color: var(--text); }
   ul { padding-left: 1.25rem; }
   li { margin: .4rem 0; }
   strong { font-weight: 650; }
-  a { color: var(--accent); }
   code { font-size: .95em; }
   .draft {
     background: #C0392B; color: #fff; padding: .75rem 1rem;
     border-radius: .5rem; font-weight: 600;
   }
-  footer {
-    margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
-    color: var(--muted); font-size: .9rem;
+
+  /* --- Kopfzeile: Marke links, Seiten rechts; auf dem Handy ein Menue --- */
+  .top {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .7rem 1.25rem; background: var(--bg);
+    border-bottom: 1px solid var(--border);
   }
+  .top-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; max-width: 64rem; margin: 0 auto; }
+  .brand {
+    display: inline-flex; align-items: center; gap: .6rem;
+    color: var(--text); text-decoration: none; font-weight: 700; font-size: 1.1rem;
+  }
+  .brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .desk { display: none; gap: 1.25rem; align-items: center; }
+  .desk a, .desk span { color: var(--muted); text-decoration: none; font-size: .95rem; }
+  .desk a:hover { color: var(--accent); }
+  .desk [aria-current] { color: var(--text); font-weight: 600; }
+  .desk .lang { padding: .25rem .7rem; border: 1px solid var(--border); border-radius: 999px; }
+
+  .burger {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 44px; height: 44px; padding: 10px; margin: -6px; cursor: pointer;
+    border-radius: .5rem; background: none; border: 0;
+  }
+  .burger i { display: block; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
+  .menu-toggle:checked ~ .top .burger i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle:checked ~ .top .burger i:nth-child(2) { opacity: 0; }
+  .menu-toggle:checked ~ .top .burger i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .scrim {
+    position: fixed; inset: 0; z-index: 30; background: rgba(0,0,0,.4);
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 40;
+    width: min(82vw, 20rem); padding: 1.25rem; overflow-y: auto;
+    background: var(--surface); border-left: 1px solid var(--border);
+    transform: translateX(100%); transition: transform .25s ease;
+    box-shadow: -8px 0 24px rgba(0,0,0,.15);
+  }
+  .drawer .drawer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .drawer .drawer-head span { font-weight: 700; }
+  .drawer .close { font-size: 1.6rem; line-height: 1; cursor: pointer; padding: .25rem .5rem; }
+  .drawer nav { display: flex; flex-direction: column; }
+  .drawer nav a, .drawer nav [aria-current] {
+    padding: .8rem .25rem; border-bottom: 1px solid var(--border);
+    color: var(--text); text-decoration: none; font-size: 1.05rem;
+  }
+  .drawer nav [aria-current] { color: var(--accent); font-weight: 600; }
+  .drawer nav .lang { margin-top: .75rem; color: var(--muted); border: 0; }
+  .menu-toggle:checked ~ .scrim { opacity: 1; pointer-events: auto; }
+  .menu-toggle:checked ~ .drawer { transform: none; }
+
+  @media (min-width: 760px) {
+    .desk { display: flex; }
+    .burger, .scrim, .drawer { display: none; }
+  }
+
+  /* --- Inhalt --- */
+  main { max-width: 44rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  footer {
+    border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem;
+  }
+  footer .foot-inner { max-width: 64rem; margin: 0 auto; padding: 1.25rem 1.25rem 2.5rem; }
   footer nav { margin-bottom: .5rem; }
-  /* Die aktuelle Seite steht mit da, aber nicht als Link ins Nirgendwo. */
   footer nav [aria-current] { color: var(--text); font-weight: 600; }
-</style>
-<style>
-  .lead { font-size: 1.15rem; color: var(--muted); margin: 0 0 2rem; }
+
+  /* --- Startseite --- */
+  main.home { max-width: 64rem; padding-top: 1.5rem; }
+  .hero { display: grid; gap: 2rem; align-items: center; margin: 1rem 0 3rem; }
+  .kicker { color: var(--accent); font-weight: 600; letter-spacing: .02em; font-size: .9rem; text-transform: uppercase; margin: 0 0 .5rem; }
+  .hero h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.15; margin: 0 0 1rem; }
+  .lead { font-size: 1.15rem; color: var(--muted); margin: 0 0 1.5rem; max-width: 34rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; align-items: center; }
   .cta {
-    display: inline-block; margin: 1.5rem 0 .5rem; padding: .8rem 1.4rem;
-    background: var(--accent); color: #fff; border-radius: .5rem;
+    display: inline-block; padding: .85rem 1.4rem;
+    background: var(--accent); color: #fff; border-radius: .6rem;
     text-decoration: none; font-weight: 600;
   }
-  ul { margin-bottom: 0; }
+  .cta:hover { filter: brightness(1.05); }
+  .more { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .more::after { content: " \2192"; }
+  .shot { margin: 0; }
+  .shot img {
+    display: block; width: 100%; height: auto; border-radius: 1.4rem;
+    border: 6px solid var(--frame); background: var(--frame);
+    box-shadow: 0 18px 40px rgba(0,0,0,.18);
+  }
+  .hero .shot { max-width: 240px; margin: 0 auto; }
+
+  .cards { display: grid; gap: 1rem; margin: 0 0 3rem; padding: 0; list-style: none; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 1rem;
+    padding: 1.25rem; margin: 0;
+  }
+  .card .ico {
+    display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center;
+    background: var(--accent-soft); color: var(--accent); border-radius: 10px; margin-bottom: .75rem;
+  }
+  .card h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .97rem; }
+
+  .section-title { font-size: 1.35rem; margin: 0 0 1rem; color: var(--text); }
+  .shots { display: flex; gap: 1rem; margin: 0 -1.25rem 3rem; padding: .25rem 1.25rem 1rem; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .shots figure { flex: 0 0 62%; margin: 0; scroll-snap-align: start; }
+  .shots figcaption { text-align: center; color: var(--muted); font-size: .92rem; margin-top: .6rem; }
+
+  .note {
+    background: var(--surface-alt); border: 1px solid var(--border); border-radius: 1rem;
+    padding: 1.25rem 1.5rem; margin: 0 0 2rem;
+  }
+  .note h2 { margin: 0 0 .4rem; color: var(--text); font-size: 1.15rem; }
+  .note p { margin: 0; color: var(--muted); }
+  .note p:last-child { margin-top: .5rem; }
+
+  @media (min-width: 760px) {
+    .hero { grid-template-columns: 1.3fr 1fr; margin-top: 2rem; }
+    .hero .shot { max-width: 300px; margin: 0 0 0 auto; }
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .shots { margin: 0 0 3rem; padding: 0; overflow: visible; }
+    .shots figure { flex: 1 1 0; }
+    .note { padding: 1.75rem 2rem; }
+  }
+  @media (min-width: 1000px) {
+    .cards { grid-template-columns: repeat(4, 1fr); }
+  }
 </style>
+<meta name="description" content="Heimly sorts your shopping list the way you walk through the store, knows what is in the pantry, and turns a pasted recipe into ingredients and steps. No account, no email.">
+<meta name="robots" content="index, follow">
 </head>
 <body>
-<main>
-<h1>Heimly</h1>
-<p class="lead">Shopping list, pantry and recipes for your household — without an account.</p>
+<input type="checkbox" id="menu" class="menu-toggle" hidden>
+<header class="top"><div class="top-inner">
+<a class="brand" href="../en/"><img src="../img/icon.png" alt="" width="32" height="32">Heimly</a>
+<nav class="desk" aria-label="Pages"><span aria-current="page">Home</span><a href="../en/roadmap/">Roadmap</a><a href="../en/privacy/">Privacy policy</a><a href="../en/data-deletion/">Data deletion</a><a href="../en/imprint/">Imprint</a><a class="lang" href="../" lang="de">Deutsch</a></nav>
+<label class="burger" for="menu" role="button" tabindex="0" aria-label="Menu"><i></i><i></i><i></i></label>
+</div></header>
+<label class="scrim" for="menu" aria-hidden="true"></label>
+<aside class="drawer" aria-label="Pages">
+<div class="drawer-head"><span>Menu</span><label class="close" for="menu" aria-label="Close menu">&times;</label></div>
+<nav><span aria-current="page">Home</span><a href="../en/roadmap/">Roadmap</a><a href="../en/privacy/">Privacy policy</a><a href="../en/data-deletion/">Data deletion</a><a href="../en/imprint/">Imprint</a><a class="lang" href="../" lang="de">Deutsch</a></nav>
+</aside>
+<main class="home">
 
-<ul>
-<li><strong>Shopping</strong> — items sorted by aisle, with quantity and unit recognised as you type. A list can be shared with a link.</li>
-<li><strong>Pantry</strong> — what is in the freezer, the fridge and the cupboard, visible to everyone in the household.</li>
-<li><strong>Recipes</strong> — paste text from a chat or a blog and Heimly splits it into ingredients and steps. From there the ingredients go onto the shopping list.</li>
-<li><strong>No sign-up</strong> — no email, no password. Whatever you do not explicitly share never leaves your device.</li>
+<section class="hero">
+<div>
+<p class="kicker">Shopping list, pantry and recipes</p>
+<h1>Shopping and cooking, together as a household.</h1>
+<p class="lead">Heimly sorts your shopping list the way you walk through the store, knows what is in the pantry, and turns a pasted recipe into ingredients and steps. No account, no email.</p>
+<p class="actions"><a class="cta" href="https://play.google.com/store/apps/details?id=com.mgmedia.heimly">Get it on Google Play</a><span style="color:var(--muted)">Free, no ads</span></p>
+</div>
+<figure class="shot"><img src="../img/en/02-liste-detail.png" width="1344" height="2992" alt="Heimly: a shopping list sorted by aisle"></figure>
+</section>
+
+<ul class="cards">
+<li class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></span><h3>Shopping</h3><p>Items sorted by aisle, with quantity and unit recognised as you type. A list can be shared with a link.</p></li>
+<li class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 10h14M9 6v1.5M9 14v3"/></svg></span><h3>Pantry</h3><p>What is in the freezer, the fridge and the cupboard, visible to everyone in the household — with a reminder before something expires.</p></li>
+<li class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14v7h12v-7"/><path d="M6 14a4 4 0 0 1 1-7.9 5 5 0 0 1 10 0A4 4 0 0 1 18 14"/><path d="M6 17.5h12"/></svg></span><h3>Recipes</h3><p>Paste text from a chat or a blog and Heimly splits it into ingredients and steps. Cooking mode with timer, convert servings, ingredients onto the list.</p></li>
+<li class="card"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><h3>No account</h3><p>No email, no password. Whatever you do not explicitly share never leaves your device.</p></li>
 </ul>
 
-<p><a class="cta" href="https://play.google.com/store/apps/details?id=com.mgmedia.heimly">View on Google Play</a></p>
+<h2 class="section-title">What Heimly looks like</h2>
+<div class="shots">
+<figure class="shot"><img src="../img/en/01-uebersicht.png" width="1344" height="2992" loading="lazy" alt=""><figcaption>Sorted like the store</figcaption></figure>
+<figure class="shot"><img src="../img/en/04-rezept-import.png" width="1344" height="2992" loading="lazy" alt=""><figcaption>Paste a recipe, done</figcaption></figure>
+<figure class="shot"><img src="../img/en/06-kochmodus.png" width="1344" height="2992" loading="lazy" alt=""><figcaption>Cooking mode with timer</figcaption></figure>
+</div>
+
+<section class="note">
+<h2>Stays on your device</h2>
+<p>Lists, pantry and recipes live on your phone. Only what you explicitly share with your household goes to the server — and you can stop sharing at any time.</p>
+<p><a class="more" href="../en/privacy/">What happens to your data</a></p>
+</section>
 
 <p>What is being worked on next is listed on the <a href="../en/roadmap/">roadmap</a>.</p>
 
-<footer>
+</main>
+<footer><div class="foot-inner">
 <nav><span aria-current="page">Home</span> · <a href="../en/roadmap/">Roadmap</a> · <a href="../en/privacy/">Privacy policy</a> · <a href="../en/data-deletion/">Data deletion</a> · <a href="../en/imprint/">Imprint</a> · <a href="../" lang="de">Deutsch</a></nav>
 Heimly &middot; Shopping list &amp; household planner
-</footer>
-</main>
+</div></footer>
+<script>
+(function(){var m=document.getElementById('menu');if(!m)return;
+document.querySelectorAll('.burger').forEach(function(b){b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();m.checked=!m.checked;}});});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')m.checked=false;});})();
+</script>
 </body>
 </html>
